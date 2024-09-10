@@ -23,8 +23,9 @@ export class WebhookService {
       ? this.createAttachmentsFromFileIds(file_ids)
       : [];
 
+    console.log(this.mattermostBaseUrl);
     await axios.post(
-      `${this.mattermostBaseUrl}/posts`,
+      `${this.mattermostBaseUrl}/api/v4/posts`,
       {
         channel_id: this.channelId,
         message: `⚠️ **Баг обнаружен:**\n${formattedMessage}`,
@@ -47,7 +48,7 @@ export class WebhookService {
     return fileIdsArray.map((fileId) => ({
       pretext: 'Прикрепленный файл',
       title: 'Файл',
-      title_link: `${this.mattermostBaseUrl}/files/${fileId}`,
+      title_link: `${this.mattermostBaseUrl}/api/v4/files/${fileId}`,
     }));
   }
 }
